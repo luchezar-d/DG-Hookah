@@ -10,17 +10,17 @@ const InfoSection = ({ section, className = "" }) => {
       } flex-wrap lg:flex-nowrap`}>
         
         {/* Image */}
-        <div className="flex-1 max-w-lg opacity-0 animate-fade-in-left">
+        <div className="flex-1 max-w-lg opacity-0 animate-cinematic-slide-up">
           <img 
             src={`/images/${section.image}`}
             alt={getText(section.title)}
-            className="w-full aspect-[4/3] object-cover rounded-xl shadow-2xl"
+            className="w-full aspect-[4/3] object-cover rounded-xl shadow-2xl hover-cinematic will-change-transform"
           />
         </div>
 
         {/* Text */}
-        <div className="flex-1 max-w-lg text-center lg:text-left opacity-0 animate-fade-in-right">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+        <div className="flex-1 max-w-lg text-center lg:text-left opacity-0 animate-cinematic-fade-in stagger-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 text-cinematic-glow">
             {getText(section.title)}
           </h2>
           <p className="text-lg text-gray-300 leading-relaxed">
