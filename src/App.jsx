@@ -12,7 +12,7 @@ function App() {
   return (
     <LanguageProvider>
       <BrowserRouter>
-        <div className="min-h-screen bg-dark-gradient">
+        <div className="min-h-screen bg-dark-gradient pt-20">
           <Navbar />
           <Routes>
             <Route path="/" element={<HomePage />} />

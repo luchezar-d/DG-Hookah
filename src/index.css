@@ -145,6 +145,7 @@
   backdrop-filter: none !important;
   border: none !important;
   box-shadow: none !important;
+  transition: all 0.3s ease-in-out !important;
 }
 
 .navbar-scrolled {
@@ -152,6 +153,7 @@
   backdrop-filter: blur(20px) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+  transition: all 0.3s ease-in-out !important;
 }
 
 /* Custom scrollbar */
