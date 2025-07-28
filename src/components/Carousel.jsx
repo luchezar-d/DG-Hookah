@@ -41,8 +41,8 @@ const Carousel = () => {
               alt={getText(slide.title)}
               className="w-full h-full object-cover"
             />
-            {/* Dark overlay with gradient */}
-            <div className="absolute inset-0 bg-gradient-to-b from-dark-900/70 via-dark-950/50 to-dark-950/80"></div>
+            {/* Dark overlay with gradient - reduced opacity to show images */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div>
             
             {/* Caption */}
             <div className="absolute inset-0 flex items-center justify-center text-center text-white z-10">
@@ -68,7 +68,7 @@ const Carousel = () => {
       {/* Navigation Arrows */}
       <button 
         onClick={prevSlide}
-        className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white text-4xl hover:text-primary-400 transition-all duration-300 z-20 hover:scale-110 text-shadow-glow"
+        className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white text-4xl hover:text-gray-300 transition-all duration-300 z-20 hover:scale-110 text-shadow-glow"
         aria-label="Previous slide"
       >
         <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
@@ -77,7 +77,7 @@ const Carousel = () => {
       </button>
       <button 
         onClick={nextSlide}
-        className="absolute right-6 top-1/2 transform -translate-y-1/2 text-white text-4xl hover:text-primary-400 transition-all duration-300 z-20 hover:scale-110 text-shadow-glow"
+        className="absolute right-6 top-1/2 transform -translate-y-1/2 text-white text-4xl hover:text-gray-300 transition-all duration-300 z-20 hover:scale-110 text-shadow-glow"
         aria-label="Next slide"
       >
         <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
@@ -93,8 +93,8 @@ const Carousel = () => {
             onClick={() => goToSlide(index)}
             className={`w-4 h-4 rounded-full transition-all duration-300 hover:scale-110 ${
               index === currentSlide 
-                ? 'bg-primary-gradient animate-glow' 
-                : 'bg-white/50 hover:bg-white/75'
+                ? 'bg-white animate-glow' 
+                : 'bg-gray-500 hover:bg-gray-300'
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />

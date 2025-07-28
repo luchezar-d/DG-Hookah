@@ -26,6 +26,11 @@ const Navbar = () => {
     setIsMenuOpen(false);
   }, [location]);
 
+  // Smooth scroll to top when route changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname]);
+
   const navLinks = [
     { 
       to: "/about", 
@@ -58,6 +63,11 @@ const Navbar = () => {
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
+    } else {
+      // Smooth scroll to top when navigating to different pages
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100); // Small delay to ensure page navigation completes first
     }
   };
 
@@ -78,7 +88,7 @@ const Navbar = () => {
             <img 
               src="/images/logo.png" 
               alt="DG Hookah Logo" 
-              className="h-16 lg:h-20 max-w-48 object-contain transform scale-125 -ml-2 pt-1 animate-float"
+              className="h-16 lg:h-20 max-w-48 object-contain transform scale-125 -ml-2 pt-1"
               style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.8))' }}
             />
             <span className="ml-2 text-xl font-display font-bold text-gradient text-shadow-glow hidden sm:block">
@@ -93,10 +103,10 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 onClick={() => handleNavClick(link)}
-                className={`font-heading font-medium text-responsive transition-all duration-300 hover:text-primary-400 hover:scale-105 text-shadow-glow ${
+                className={`font-sans font-medium text-responsive transition-all duration-300 hover:text-white hover:scale-105 text-shadow-glow ${
                   location.pathname === link.to 
-                    ? 'text-primary-400 font-semibold animate-glow' 
-                    : 'text-gray-100'
+                    ? 'text-white font-semibold animate-glow' 
+                    : 'text-gray-300'
                 }`}
               >
                 {getText(link.text)}
@@ -114,7 +124,7 @@ const Navbar = () => {
             <LanguageToggle />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-100 hover:text-primary-400 focus:outline-none focus:text-primary-400 transition-all duration-300 text-shadow-glow"
+              className="text-gray-100 hover:text-white focus:outline-none focus:text-white transition-all duration-300 text-shadow-glow"
               aria-label="Toggle menu"
             >
               <svg
@@ -148,10 +158,10 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 onClick={() => handleNavClick(link)}
-                className={`block font-heading font-medium text-responsive transition-all duration-300 hover:text-primary-400 hover:translate-x-2 text-shadow ${
+                className={`block font-sans font-medium text-responsive transition-all duration-300 hover:text-white hover:translate-x-2 text-shadow ${
                   location.pathname === link.to 
-                    ? 'text-primary-400 font-semibold' 
-                    : 'text-gray-100'
+                    ? 'text-white font-semibold' 
+                    : 'text-gray-300'
                 }`}
               >
                 {getText(link.text)}
