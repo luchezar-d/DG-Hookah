@@ -11,21 +11,17 @@ const ScrollResponsiveSection = ({
   index 
 }) => {
   const [ref, inView] = useInView({
-    threshold: 0.2,
+    threshold: 0.4, // Higher threshold - more of section must be visible
     triggerOnce: false,
-    rootMargin: '0px'
+    rootMargin: '-20% 0px -20% 0px' // Larger margins to prevent overlap
   });
 
-  // Much simpler transforms for better performance
-  const offsetStart = index * 0.2;
-  const offsetEnd = offsetStart + 0.3;
-  
-  // Only essential transforms to reduce computational load
-  const opacity = useTransform(scrollProgress, [offsetStart, offsetStart + 0.05, offsetEnd - 0.1, offsetEnd], [0, 1, 1, 0]);
-  const y = useTransform(scrollProgress, [offsetStart, offsetEnd], [15, -15]);
+  // Simple opacity based on intersection observer instead of complex scroll math
+  const opacity = inView ? 1 : 0;
+  const y = inView ? 0 : 30;
 
   return (
-    <div ref={ref} className="py-16 relative">
+    <div ref={ref} className="py-20 relative">
       {/* VolumetricClouds that appear when section is in view */}
       <VolumetricClouds 
         active={inView}
@@ -39,10 +35,11 @@ const ScrollResponsiveSection = ({
         {/* Text Content */}
         <motion.div 
           className={`${imagePosition === 'left' ? 'md:order-2' : 'md:order-1'}`}
-          style={{
-            y,
+          animate={{
             opacity,
+            y,
           }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <motion.h3 
             className="text-2xl md:text-3xl font-serif font-light text-white/95 mb-6 tracking-wider"
@@ -71,10 +68,11 @@ const ScrollResponsiveSection = ({
         {/* Image/Visual Element */}
         <motion.div 
           className={`relative ${imagePosition === 'left' ? 'md:order-1' : 'md:order-2'}`}
-          style={{
+          animate={{
             opacity,
             y,
           }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Elegant Image Container */}
           <div className="relative w-full h-80 md:h-96 rounded-lg overflow-hidden shadow-2xl group">
