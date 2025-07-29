@@ -12,9 +12,9 @@ function App() {
   return (
     <LanguageProvider>
       <BrowserRouter>
+        <Navbar />
         <CinematicBackground>
           <div className="min-h-screen pt-20">
-            <Navbar />
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/drinks" element={<ProductsPage type="drinks" />} />
