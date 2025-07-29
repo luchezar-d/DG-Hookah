@@ -10,7 +10,7 @@ const InfoSection = ({ section, className = "" }) => {
       } flex-wrap lg:flex-nowrap`}>
         
         {/* Image */}
-        <div className="flex-1 max-w-lg opacity-0 animate-cinematic-slide-up">
+        <div className="flex-1 max-w-lg animate-cinematic-slide-up">
           <img 
             src={`/images/${section.image}`}
             alt={getText(section.title)}
@@ -19,7 +19,7 @@ const InfoSection = ({ section, className = "" }) => {
         </div>
 
         {/* Text */}
-        <div className="flex-1 max-w-lg text-center lg:text-left opacity-0 animate-cinematic-fade-in stagger-2">
+        <div className="flex-1 max-w-lg text-center lg:text-left animate-cinematic-fade-in stagger-2">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 text-cinematic-glow">
             {getText(section.title)}
           </h2>
