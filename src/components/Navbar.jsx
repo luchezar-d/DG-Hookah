@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../utils/LanguageContext';
-import LanguageToggle from './LanguageToggle';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,16 +33,6 @@ const Navbar = () => {
 
   const navLinks = [
     { 
-      to: "/about", 
-      text: { en: "About", bg: "За нас" },
-      anchor: "#about"
-    },
-    { 
-      to: "/contact", 
-      text: { en: "Contact", bg: "Контакт" },
-      anchor: "#contact"
-    },
-    { 
       to: "/drinks", 
       text: { en: "Drinks", bg: "Напитки" }
     },
@@ -54,6 +43,11 @@ const Navbar = () => {
     { 
       to: "/hookahs", 
       text: { en: "Hookahs", bg: "Наргилета" }
+    },
+    { 
+      to: "/about", 
+      text: { en: "About", bg: "За нас" },
+      anchor: "#about"
     }
   ];
 
@@ -75,16 +69,26 @@ const Navbar = () => {
   return (
     <>
       <nav 
-        className={`fixed top-0 left-0 right-0 z-50 px-6 lg:px-12 transition-all duration-500 ${
+        className={`top-0 left-0 right-0 transition-all duration-500 ${
           isScrolled 
             ? 'bg-black/30 backdrop-blur-md shadow-lg' 
             : 'bg-black/60 backdrop-blur-sm'
         }`}
+        style={{ 
+          position: 'fixed',
+          zIndex: 99999,
+          width: '100vw',
+          top: 0,
+          left: 0,
+          right: 0,
+          margin: 0,
+          padding: 0
+        }}
       >
-        <div className="flex items-center justify-between h-20 max-w-7xl mx-auto">
+        <div className="flex items-center justify-between h-20 max-w-7xl mx-auto px-3 lg:px-6">
           
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
+          {/* Logo - Left Side */}
+          <Link to="/" className="flex items-center flex-shrink-0">
             <img 
               src="/images/logo.png" 
               alt="DG Hookah Logo" 
@@ -96,8 +100,8 @@ const Navbar = () => {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
+          {/* Desktop Navigation - Center */}
+          <div className="hidden lg:flex items-center space-x-8 flex-1 justify-center">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
@@ -112,16 +116,50 @@ const Navbar = () => {
                 {getText(link.text)}
               </Link>
             ))}
-            
-            {/* Language Toggle */}
-            <div className="ml-4">
-              <LanguageToggle />
-            </div>
+          </div>
+
+          {/* Social Icons - Right Side */}
+          <div className="hidden lg:flex items-center space-x-4 flex-shrink-0">
+            {/* Instagram Icon */}
+            <a
+              href="https://instagram.com/dghookah" // Replace with actual Instagram URL
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-300 hover:text-white transition-all duration-300 hover:scale-110"
+              aria-label="Follow us on Instagram"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+
+            {/* Google Maps Icon */}
+            <a
+              href="https://maps.google.com/?q=DG+Hookah+Lounge" // Replace with actual location
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-300 hover:text-white transition-all duration-300 hover:scale-110"
+              aria-label="Find us on Google Maps"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+            </a>
+
+            {/* Phone Icon */}
+            <a
+              href="tel:+1234567890" // Replace with actual phone number
+              className="text-gray-300 hover:text-white transition-all duration-300 hover:scale-110"
+              aria-label="Call us"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+              </svg>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center space-x-4">
-            <LanguageToggle />
+          <div className="lg:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-100 hover:text-white focus:outline-none focus:text-white transition-all duration-300 text-shadow-glow"
@@ -164,6 +202,46 @@ const Navbar = () => {
                 {getText(link.text)}
               </Link>
             ))}
+            
+            {/* Mobile Social Icons */}
+            <div className="flex items-center justify-center space-x-6 pt-4 mt-6 border-t border-white/10">
+              {/* Instagram Icon */}
+              <a
+                href="https://instagram.com/dghookah" // Replace with actual Instagram URL
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-white transition-all duration-300 hover:scale-110"
+                aria-label="Follow us on Instagram"
+              >
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+
+              {/* Google Maps Icon */}
+              <a
+                href="https://maps.google.com/?q=DG+Hookah+Lounge" // Replace with actual location
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-white transition-all duration-300 hover:scale-110"
+                aria-label="Find us on Google Maps"
+              >
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+              </a>
+
+              {/* Phone Icon */}
+              <a
+                href="tel:+1234567890" // Replace with actual phone number
+                className="text-gray-300 hover:text-white transition-all duration-300 hover:scale-110"
+                aria-label="Call us"
+              >
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </nav>
