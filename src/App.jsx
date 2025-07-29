@@ -3,6 +3,7 @@ import { LanguageProvider } from './utils/LanguageContext';
 import CinematicBackground from './components/CinematicBackground';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import LanguageToggle from './components/LanguageToggle';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import AboutPage from './pages/AboutPage';
@@ -26,6 +27,8 @@ function App() {
             <Footer />
           </div>
         </CinematicBackground>
+        {/* LanguageToggle outside CinematicBackground for highest z-index */}
+        <LanguageToggle />
       </BrowserRouter>
     </LanguageProvider>
   );
