@@ -1,0 +1,8 @@
+# Netlify redirects for React Router (SPA)
+# This ensures all routes are handled by React Router instead of trying to find static files
+
+# Redirect all routes to index.html with 200 status (SPA fallback)
+/*    /index.html   200
+
+# Optional: Redirect common API routes or specific paths if needed
+# /api/*  https://your-api-domain.com/:splat  200
