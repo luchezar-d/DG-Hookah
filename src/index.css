@@ -452,4 +452,9 @@
     15% { opacity: 0.3; }
     100% { opacity: 0; }
   }
+
+  /* Smoke Effect Utilities */
+  .bg-gradient-radial {
+    background: radial-gradient(circle at center, var(--tw-gradient-stops));
+  }
 }
