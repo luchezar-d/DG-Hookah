@@ -49,38 +49,39 @@ const Carousel = () => {
     e.preventDefault();
     setIsScrolling(true);
     
-    // Add cinematic screen flash effect
+    // Much gentler effects for smooth experience
     const flash = document.createElement('div');
-    flash.className = 'cinematic-flash-overlay';
+    flash.className = 'cinematic-flash-overlay-smooth';
     document.body.appendChild(flash);
     
-    // Add screen ripple effect
+    // Add back the ripple effect - you liked this!
     const ripple = document.createElement('div');
     ripple.className = 'cinematic-ripple-effect';
     ripple.style.left = `${e.clientX}px`;
     ripple.style.top = `${e.clientY}px`;
     document.body.appendChild(ripple);
     
-    // Slight delay before scroll for dramatic effect
+    // Gentle delay before scroll
     setTimeout(() => {
       scrollToSection('#hookahs', {
-        duration: 300, // Super fast - 300ms as requested
+        duration: 2000, // Even longer for testing - 2 seconds 
         offset: -100,
         revealElements: true,
-        showLoadingOverlay: false // Disable loading overlay but keep splash effects
+        showLoadingOverlay: false, // Keep it simple
+        easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)' // Even gentler easing
       });
-    }, 200);
+    }, 150); // Slightly longer delay to see the effects
 
     // Cleanup effects
     setTimeout(() => {
       flash.remove();
       ripple.remove();
-    }, 600);
+    }, 1500); // Give ripple time to complete its 1s animation
 
     // Reset scrolling state after animation
     setTimeout(() => {
       setIsScrolling(false);
-    }, 800); // Reduced to match faster animation
+    }, 2300); // Match the longer duration + delay
   };
 
   return (

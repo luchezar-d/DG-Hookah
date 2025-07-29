@@ -435,4 +435,21 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   }
+
+  /* Gentler flash overlay for smooth scroll experience */
+  .cinematic-flash-overlay-smooth {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 80%);
+    z-index: 9999;
+    pointer-events: none;
+    animation: cinematic-flash-smooth 1.2s ease-out forwards;
+  }
+
+  @keyframes cinematic-flash-smooth {
+    0% { opacity: 0; }
+    5% { opacity: 0.8; }
+    15% { opacity: 0.3; }
+    100% { opacity: 0; }
+  }
 }
