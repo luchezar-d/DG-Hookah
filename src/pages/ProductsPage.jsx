@@ -7,17 +7,31 @@ const ProductsPage = ({ type = 'drinks' }) => {
   const data = menuData[type];
   const [visibleItems, setVisibleItems] = useState(new Set());
 
-  // Intersection Observer for fade-in animations
+  // Dynamic scroll-based animations - smooth fade in/out on every scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleItems(prev => new Set([...prev, entry.target.dataset.index]));
-          }
+        setVisibleItems(prev => {
+          const newVisible = new Set(prev);
+          
+          entries.forEach((entry) => {
+            const itemId = entry.target.dataset.index;
+            if (entry.isIntersecting) {
+              // Item is entering viewport - fade in smoothly
+              newVisible.add(itemId);
+            } else {
+              // Item is leaving viewport - fade out gradually (visible during scroll)
+              newVisible.delete(itemId);
+            }
+          });
+          
+          return newVisible;
         });
       },
-      { threshold: 0.1, rootMargin: '50px' }
+      { 
+        threshold: [0, 0.1, 0.2, 0.3], // Multiple thresholds for gradual detection
+        rootMargin: '200px 0px -50px 0px' // Larger top margin, smaller bottom margin for gradual fade-out visibility
+      }
     );
 
     // Re-observe elements whenever the component updates
@@ -99,12 +113,15 @@ const ProductsPage = ({ type = 'drinks' }) => {
               <div 
                 key={item.id}
                 data-index={`featured-${index}`}
-                className={`group relative bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 overflow-hidden hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:scale-105 ${
-                  visibleItems.has(`featured-${index}`) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                className={`group relative bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 overflow-hidden hover:bg-white/10 hover:border-white/20 hover:scale-105 ${
+                  visibleItems.has(`featured-${index}`) 
+                    ? 'opacity-100 translate-y-0 translate-x-0 rotate-0 scale-100 transition-all duration-700 ease-out' 
+                    : `opacity-0 ${index % 2 === 0 ? 'translate-y-6 translate-x-4 rotate-1' : 'translate-y-6 translate-x-[-4px] rotate-[-1deg]'} scale-96 transition-all duration-900 ease-in-out`
                 }`}
                 style={{ 
-                  transitionDelay: `${index * 0.2}s`,
-                  transitionProperty: 'opacity, transform'
+                  transitionDelay: visibleItems.has(`featured-${index}`) ? `${index * 0.15}s` : `${index * 0.12}s`,
+                  transitionProperty: 'opacity, transform, background-color, border-color',
+                  willChange: 'opacity, transform'
                 }}
               >
                 {/* Image */}
@@ -167,10 +184,16 @@ const ProductsPage = ({ type = 'drinks' }) => {
               <div 
                 key={categoryIndex}
                 data-index={`category-${categoryIndex}`}
-                className={`transform transition-all duration-500 ${
-                  visibleItems.has(`category-${categoryIndex}`) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                className={`${
+                  visibleItems.has(`category-${categoryIndex}`) 
+                    ? 'opacity-100 translate-y-0 translate-x-0 rotate-0 scale-100 transition-all duration-800 ease-out' 
+                    : `opacity-0 translate-y-8 ${categoryIndex % 2 === 0 ? 'translate-x-3 rotate-0.5' : 'translate-x-[-3px] rotate-[-0.5deg]'} scale-97 transition-all duration-1000 ease-in-out`
                 }`}
-                style={{ transitionDelay: `${categoryIndex * 0.1}s` }}
+                style={{ 
+                  transitionDelay: visibleItems.has(`category-${categoryIndex}`) ? `${categoryIndex * 0.12}s` : `${categoryIndex * 0.1}s`,
+                  transitionProperty: 'opacity, transform',
+                  willChange: 'opacity, transform'
+                }}
               >
                 {/* Category Header */}
                 <div className="mb-8">
@@ -191,12 +214,17 @@ const ProductsPage = ({ type = 'drinks' }) => {
                     <div 
                       key={itemIndex}
                       data-index={`item-${categoryIndex}-${itemIndex}`}
-                      className={`group flex items-start justify-between py-4 px-6 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-500 ${
-                        visibleItems.has(`item-${categoryIndex}-${itemIndex}`) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+                      className={`group flex items-start justify-between py-4 px-6 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 ${
+                        visibleItems.has(`item-${categoryIndex}-${itemIndex}`) 
+                          ? 'opacity-100 translate-x-0 translate-y-0 rotate-0 scale-100 transition-all duration-750 ease-out' 
+                          : `opacity-0 ${itemIndex % 2 === 0 ? 'translate-x-8 translate-y-2 rotate-0.5' : 'translate-x-[-8px] translate-y-2 rotate-[-0.5deg]'} scale-98 transition-all duration-800 ease-in-out`
                       }`}
                       style={{ 
-                        transitionDelay: `${(categoryIndex * 3 + itemIndex) * 0.1}s`,
-                        transitionProperty: 'opacity, transform, background-color, border-color'
+                        transitionDelay: visibleItems.has(`item-${categoryIndex}-${itemIndex}`) 
+                          ? `${itemIndex * 0.1}s` 
+                          : `${itemIndex * 0.08}s`,
+                        transitionProperty: 'opacity, transform, background-color, border-color',
+                        willChange: 'opacity, transform'
                       }}
                     >
                       <div className="flex-1 pr-4">
