@@ -5,29 +5,39 @@ const FeatureCard = ({ feature }) => {
   const { getText } = useLanguage();
 
   return (
-    <div className="group relative overflow-hidden rounded-xl shadow-2xl aspect-[4/3] transform transition-all duration-500 hover:scale-105 hover-cinematic glass-cinematic">
+    <Link 
+      to={feature.route}
+      className="group relative overflow-hidden rounded-lg shadow-xl aspect-[3/4] block transform transition-all duration-700 hover:scale-105"
+    >
       <img 
         src={`/images/${feature.image}`}
         alt={getText(feature.title)}
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform"
+        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
       />
       
-      {/* Enhanced Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300"></div>
+      {/* Elegant gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-black/90 transition-all duration-500"></div>
       
-      {/* Content */}
-      <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-        <h3 className="text-2xl font-display font-bold mb-4 text-center text-cinematic-glow">
-          {getText(feature.title)}
-        </h3>
-        <Link 
-          to={feature.route}
-          className="btn-primary block w-full text-center glass-cinematic hover-cinematic"
-        >
-          {getText({ en: "Explore Menu", bg: "Разгледай менюто" })}
-        </Link>
+      {/* Minimalist content */}
+      <div className="absolute inset-0 flex flex-col justify-end p-8">
+        <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+          <h3 className="text-2xl md:text-3xl font-serif font-light text-white/95 tracking-wider mb-4">
+            {getText(feature.title)}
+          </h3>
+          
+          {/* Subtle accent line */}
+          <div className="w-12 h-px bg-gradient-to-r from-amber-400/60 to-transparent mb-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 delay-200"></div>
+          
+          {/* Elegant explore text that appears on hover */}
+          <p className="text-gray-200/70 text-sm font-light tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-300">
+            {getText({ en: "Explore Collection", bg: "Разгледайте колекцията" })}
+          </p>
+        </div>
+
+        {/* Corner accent */}
+        <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100"></div>
       </div>
-    </div>
+    </Link>
   );
 };
 
